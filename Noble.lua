@@ -204,6 +204,7 @@ end
 local currentTransition = nil
 local queuedScene = nil
 local transitionIsSceneless = false
+local scenelessTransitionInputHandler = nil
 
 --- Transition to a new scene (at the end of this frame).
 --- This method will create a new scene, mark the previous one for garbage collection, and animate between them.
@@ -309,7 +310,9 @@ end
 
 function Noble.transitionStartHandler()
 	isTransitioning = true
-	if (not transitionIsSceneless and currentScene ~= nil) then
+	if (transitionIsSceneless) then
+		scenelessTransitionInputHandler = Noble.Input.getHandler()	-- Capture the active inputHandler (which may not be the current scene's) so it can be restored when the transition completes.
+	elseif (currentScene ~= nil) then
 		currentScene:exit()				-- The current scene runs its "goodbye" code. Sprites are taken out of the simulation.
 	end
 	Noble.Input.setHandler(nil)			-- Disable user input.
@@ -333,9 +336,8 @@ function Noble.transitionCompleteHandler()
 	currentTransition = nil				-- Clear the transition variable.
 	if (transitionIsSceneless) then
 		transitionIsSceneless = false	-- Reset
-		if (currentScene ~= nil) then
-			Noble.Input.setHandler(currentScene.inputHandler)	-- Re-enable user input, without re-running the current scene's start() code.
-		end
+		Noble.Input.setHandler(scenelessTransitionInputHandler)	-- Restore the inputHandler that was active when the transition started, without re-running the current scene's start() code.
+		scenelessTransitionInputHandler = nil
 		Graphics.sprite.redrawBackground()
 	else
 		currentScene:start()			-- The new scene is now active.
