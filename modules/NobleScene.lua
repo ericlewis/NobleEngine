@@ -26,6 +26,12 @@ NobleScene.name = ""
 --
 NobleScene.backgroundColor = Graphics.kColorWhite
 
+--- This is the color of this scene's debug drawing (see @{drawDebug|drawDebug}).
+-- A table of red, green, blue, and alpha component values, each from 0 to 1.
+-- Debug drawing is only visible in the Playdate Simulator.
+-- @see drawDebug
+NobleScene.debugColor = {1, 0, 0, 1}
+
 --- Tables
 -- @section tables
 
@@ -102,6 +108,34 @@ function NobleScene:removeSprite(__sprite)
 	end
 end
 
+--- Enables this scene's debug drawing in the Playdate Simulator, by setting `playdate.debugDraw()`
+-- to call this scene's @{drawDebug|drawDebug} method, using this scene's @{debugColor|debugColor}.
+--
+-- This is called automatically in @{enter|enter}, so you only need to call it yourself
+-- if you want to re-enable debug drawing after calling @{disableDebug|disableDebug}.
+--
+-- This method does nothing on Playdate hardware, where debug drawing is unavailable.
+-- @see disableDebug
+-- @see drawDebug
+function NobleScene:enableDebug()
+	if (playdate.isSimulator) then
+		playdate.setDebugDrawColor(table.unpack(self.debugColor))
+		playdate.debugDraw = function()
+			self:drawDebug()
+		end
+	end
+end
+
+--- Disables this scene's debug drawing, by clearing `playdate.debugDraw()`.
+--
+-- This is called automatically in @{exit|exit}, so you only need to call it yourself
+-- if you want to turn off debug drawing while this scene is running.
+-- @see enableDebug
+-- @see drawDebug
+function NobleScene:disableDebug()
+	playdate.debugDraw = nil
+end
+
 --- Callbacks
 -- @section callbacks
 
@@ -126,7 +160,9 @@ end
 --		--[Your code here]--
 --	end
 --
-function NobleScene:enter() end
+function NobleScene:enter()
+	self:enableDebug()
+end
 
 --- Implement if you have code to run once the transition to this scene is complete. This method signifies the full activation of a scene. If this scene's `inputHandler` is defined, it is enabled now.
 -- @see inputHandler
@@ -185,6 +221,20 @@ function NobleScene:drawBackground(__x, __y, __width, __height)
 	end
 end
 
+--- Implement this function to draw debug visual elements in your scene.
+--- This runs via `playdate.debugDraw()`, so it only runs in the Playdate Simulator, and anything drawn
+--- is rendered in this scene's @{debugColor|debugColor}. By default it does nothing.
+-- @see debugColor
+-- @see enableDebug
+--
+-- @usage
+--	function YourSceneName:drawDebug()
+--		YourSceneName.super.drawDebug(self) -- optional, invokes default behavior.
+--		--[Your code here]--
+--	end
+--
+function NobleScene:drawDebug() end
+
 --- Implement this in your scene if you have "goodbye" code to run when a transition to another scene
 -- begins, such as UI animation, saving to disk, etc.
 --
@@ -199,6 +249,7 @@ function NobleScene:exit()
 		sprite:setUpdatesEnabled(false)
 		sprite:setCollisionsEnabled(false)
 	end
+	self:disableDebug()
 end
 
 --- Implement this in your scene if you have code to run when a transition to another scene
