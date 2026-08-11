@@ -215,6 +215,16 @@ function Noble.Menu.new(__activate, __alignment, __localized, __color, __padding
 
 		self:setNumberOfRows(#self.itemNames)
 
+		-- If there is no current item (i.e. this item was added to an empty menu),
+		-- this item becomes the current one, so that click() works on it.
+		if (self.currentItemName == nil) then
+			self.currentItemNumber = 1
+			self.currentItemName = self.itemNames[1]
+			if (self:isActive()) then
+				self:setSelectedRow(1)
+			end
+		end
+
 	end
 
 	-- Internal method.
