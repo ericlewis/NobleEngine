@@ -3,13 +3,13 @@
 
 class("DipTile", nil, Noble.Transition).extends(Noble.Transition)
 local transition = Noble.Transition.DipTile
-transition.name = "DipTile"
+transition.name = "Dip Tile"
 
 -- Type
 transition._type = Noble.Transition.Type.COVER
 
 --- Fade to a tiled color, then to the next scene.
--- @table Noble.Transition.Dip.defaultProperties
+-- @table Noble.Transition.DipTile.defaultProperties
 -- @number[opt=0.25] holdTime
 -- @tparam Graphics.image tilePattern
 -- @tparam[opt=Graphics.image.kDitherTypeBayer4x4] Graphics.image.kDither dither
