@@ -55,6 +55,10 @@
 					<ul>
 							<li><a href="#Noble.Transition.Dip.defaultProperties">.Dip.defaultProperties</a></li>
 					</ul>
+					<h3>Noble​.Transition​.DipTile</h3>
+					<ul>
+							<li><a href="#Noble.Transition.DipTile.defaultProperties">.DipTile.defaultProperties</a></li>
+					</ul>
 					<h3>Noble​.Transition​.DipToBlack</h3>
 					<ul>
 							<li><a href="#Noble.Transition.DipToBlack.defaultProperties">.DipToBlack.defaultProperties</a></li>
@@ -252,10 +256,15 @@ Noble.Transition.<span class="function-name">setDefaultProperties</span>(Noble.T
 					</dt>
 					<dd>
 						<em>Do not call this directly.</em> Implement this in a custom transition in order to run custom code when the transition starts.  Default transitions in Noble Engine do not use this.
+ You may also set this as a property (<code>onStart</code>) when invoking a transition, in order to run custom code for that invocation only. Callbacks set this way receive the transition object as their first argument.
 
 
 
 
+							<h3>See</h3>
+							<ul>
+									<a href="../modules/Noble.html#performTransition">Noble.performTransition</a>
+							</ul>
 
 
 					</dd>
@@ -265,10 +274,15 @@ Noble.Transition.<span class="function-name">setDefaultProperties</span>(Noble.T
 					</dt>
 					<dd>
 						<em>Do not call this directly.</em> Implement this in a custom transition in order to run custom code when the transition reaches its midpoint.  Default transitions in Noble Engine do not use this.
+ You may also set this as a property (<code>onMidpoint</code>) when invoking a transition, in order to run custom code for that invocation only. Callbacks set this way receive the transition object as their first argument.
 
 
 
 
+							<h3>See</h3>
+							<ul>
+									<a href="../modules/Noble.html#performTransition">Noble.performTransition</a>
+							</ul>
 
 
 					</dd>
@@ -278,10 +292,15 @@ Noble.Transition.<span class="function-name">setDefaultProperties</span>(Noble.T
 					</dt>
 					<dd>
 						<em>Do not call this directly.</em> Implement this in a custom transition in order to run custom code when the transition's hold time has elapsed.  Default transitions in Noble Engine do not use this.
+ You may also set this as a property (<code>onHoldTimeElapsed</code>) when invoking a transition, in order to run custom code for that invocation only. Callbacks set this way receive the transition object as their first argument.
 
 
 
 
+							<h3>See</h3>
+							<ul>
+									<a href="../modules/Noble.html#performTransition">Noble.performTransition</a>
+							</ul>
 
 
 					</dd>
@@ -291,10 +310,15 @@ Noble.Transition.<span class="function-name">setDefaultProperties</span>(Noble.T
 					</dt>
 					<dd>
 						<em>Do not call this directly.</em> Implement this in a custom transition in order to run custom code when the transition completes.  Default transitions in Noble Engine do not use this.
+ You may also set this as a property (<code>onComplete</code>) when invoking a transition, in order to run custom code for that invocation only. Callbacks set this way receive the transition object as their first argument.
 
 
 
 
+							<h3>See</h3>
+							<ul>
+									<a href="../modules/Noble.html#performTransition">Noble.performTransition</a>
+							</ul>
 
 
 					</dd>
@@ -506,6 +530,73 @@ Noble.Transition.<span class="function-name">setDefaultProperties</span>(Noble.T
 
 					</dd>
 			</dl>
+			<h2 class="section-header "><a name="Noble_Transition_DipTile"></a>Noble.Transition.DipTile</h2>
+			<!--  -->
+			<dl class="function">
+					<dt>
+						<a name = "Noble.Transition.DipTile.defaultProperties"></a>
+						<span class="item-name">Noble.Transition.DipTile.defaultProperties<span>
+					</dt>
+					<dd>
+						Fade to a tiled color, then to the next scene.
+
+								<h3>Fields</h3>
+							<ul class="parameters">
+													<li><span class="parameter">holdTime</span>
+															<span class="types"><span class="type">number</span></span>
+															<span class="default">= <span class="value">0.25</span> (default)</span>
+														<br/>
+
+
+
+													</li>
+													<li><span class="parameter">tilePattern</span>
+															<span class="types"><span class="type">Graphics.image</span></span>
+														<br/>
+
+
+
+													</li>
+													<li><span class="parameter">dither</span>
+															<span class="types"><span class="type">Graphics.image.kDither</span></span>
+															<span class="default">= <span class="value">Graphics.image.kDitherTypeBayer4x4</span> (default)</span>
+														<br/>
+
+
+
+													</li>
+													<li><span class="parameter">ease</span>
+															<span class="types"><span class="type">Ease</span></span>
+															<span class="default">= <span class="value">Ease.outInQuad</span> (default)</span>
+														<br/>
+
+
+
+													</li>
+													<li><span class="parameter">x</span>
+															<span class="types"><span class="type">number</span></span>
+															<span class="default">= <span class="value">0</span> (default)</span>
+														<br/>
+
+
+
+													</li>
+													<li><span class="parameter">y</span>
+															<span class="types"><span class="type">number</span></span>
+															<span class="default">= <span class="value">0</span> (default)</span>
+														<br/>
+
+
+
+													</li>
+							</ul>
+
+
+
+
+
+					</dd>
+			</dl>
 			<h2 class="section-header "><a name="Noble_Transition_DipToBlack"></a>Noble.Transition.DipToBlack</h2>
 			<!--  -->
 			<dl class="function">
@@ -515,14 +606,14 @@ Noble.Transition.<span class="function-name">setDefaultProperties</span>(Noble.T
 					</dt>
 					<dd>
 						Fade to black, then to the next scene.
- NOTE: The <code>panelImage</code> property is locked.
+ NOTE: The <code>tilePattern</code> property is locked.
 
 
 
 
 							<h3>See</h3>
 							<ul>
-									<a href="../modules/Noble.Transition.html#Noble.Transition.Dip.defaultProperties">Noble.Transition.Dip.defaultProperties</a>
+									<a href="../modules/Noble.Transition.html#Noble.Transition.DipTile.defaultProperties">Noble.Transition.DipTile.defaultProperties</a>
 							</ul>
 
 
@@ -537,14 +628,14 @@ Noble.Transition.<span class="function-name">setDefaultProperties</span>(Noble.T
 					</dt>
 					<dd>
 						Fade to white, then to the next scene.
- NOTE: The <code>panelImage</code> property is locked.
+ NOTE: The <code>tilePattern</code> property is locked.
 
 
 
 
 							<h3>See</h3>
 							<ul>
-									<a href="../modules/Noble.Transition.html#Noble.Transition.Dip.defaultProperties">Noble.Transition.Dip.defaultProperties</a>
+									<a href="../modules/Noble.Transition.html#Noble.Transition.DipTile.defaultProperties">Noble.Transition.DipTile.defaultProperties</a>
 							</ul>
 
 

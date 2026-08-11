@@ -27,6 +27,7 @@
 					<ul>
 							<li><a href="#noblescene.name">noblescene.name</a></li>
 							<li><a href="#noblescene.backgroundColor">noblescene.backgroundColor</a></li>
+							<li><a href="#noblescene.debugColor">noblescene.debugColor</a></li>
 					</ul>
 					<h3>Tables </h3>
 					<ul>
@@ -37,6 +38,8 @@
 					<ul>
 							<li><a href="#noblescene:addSprite">noblescene:addSprite</a></li>
 							<li><a href="#noblescene:removeSprite">noblescene:removeSprite</a></li>
+							<li><a href="#noblescene:enableDebug">noblescene:enableDebug</a></li>
+							<li><a href="#noblescene:disableDebug">noblescene:disableDebug</a></li>
 					</ul>
 					<h3>Callbacks </h3>
 					<ul>
@@ -45,10 +48,15 @@
 							<li><a href="#noblescene:start">noblescene:start</a></li>
 							<li><a href="#noblescene:update">noblescene:update</a></li>
 							<li><a href="#noblescene:drawBackground">noblescene:drawBackground</a></li>
+							<li><a href="#noblescene:drawDebug">noblescene:drawDebug</a></li>
 							<li><a href="#noblescene:exit">noblescene:exit</a></li>
 							<li><a href="#noblescene:finish">noblescene:finish</a></li>
 							<li><a href="#noblescene:pause">noblescene:pause</a></li>
 							<li><a href="#noblescene:resume">noblescene:resume</a></li>
+							<li><a href="#noblescene:gameWillTerminate">noblescene:gameWillTerminate</a></li>
+							<li><a href="#noblescene:deviceWillSleep">noblescene:deviceWillSleep</a></li>
+							<li><a href="#noblescene:deviceWillLock">noblescene:deviceWillLock</a></li>
+							<li><a href="#noblescene:deviceDidUnlock">noblescene:deviceDidUnlock</a></li>
 					</ul>
 			</ul>
 		</div>
@@ -130,6 +138,25 @@ local scene = YourSceneName
 
 
 
+
+
+					</dd>
+					<dt>
+						<a name = "noblescene.debugColor"></a>
+						<span class="item-name">noblescene.debugColor<span>
+					</dt>
+					<dd>
+						This is the color of this scene's debug drawing (see <a href="../classes/NobleScene.html#noblescene:drawDebug">drawDebug</a>).
+ A table of red, green, blue, and alpha component values, each from 0 to 1.
+ Debug drawing is only visible in the Playdate Simulator.
+
+
+
+
+							<h3>See</h3>
+							<ul>
+									<a href="../classes/NobleScene.html#noblescene:drawDebug">drawDebug</a>
+							</ul>
 
 
 					</dd>
@@ -252,6 +279,51 @@ local scene = YourSceneName
 							<ul>
 									<li><a href="../classes/NobleSprite.html#noblesprite:remove">NobleSprite:remove</a></li>
 									<li><a href="../classes/NobleScene.html#noblescene:addSprite">addSprite</a></li>
+							</ul>
+
+
+					</dd>
+					<dt>
+						<a name = "noblescene:enableDebug"></a>
+						<span class="item-name">noblescene:enableDebug()<span>
+					</dt>
+					<dd>
+						Enables this scene's debug drawing in the Playdate Simulator, by setting <code>playdate.debugDraw()</code>
+ to call this scene's <a href="../classes/NobleScene.html#noblescene:drawDebug">drawDebug</a> method, using this scene's <a href="../classes/NobleScene.html#noblescene.debugColor">debugColor</a>. </p>
+
+<p> This is called automatically in <a href="../classes/NobleScene.html#noblescene:enter">enter</a>, so you only need to call it yourself
+ if you want to re-enable debug drawing after calling <a href="../classes/NobleScene.html#noblescene:disableDebug">disableDebug</a>.</p>
+
+<p> This method does nothing on Playdate hardware, where debug drawing is unavailable.
+
+
+
+
+							<h3>See</h3>
+							<ul>
+									<li><a href="../classes/NobleScene.html#noblescene:disableDebug">disableDebug</a></li>
+									<li><a href="../classes/NobleScene.html#noblescene:drawDebug">drawDebug</a></li>
+							</ul>
+
+
+					</dd>
+					<dt>
+						<a name = "noblescene:disableDebug"></a>
+						<span class="item-name">noblescene:disableDebug()<span>
+					</dt>
+					<dd>
+						Disables this scene's debug drawing, by clearing <code>playdate.debugDraw()</code>. </p>
+
+<p> This is called automatically in <a href="../classes/NobleScene.html#noblescene:exit">exit</a>, so you only need to call it yourself
+ if you want to turn off debug drawing while this scene is running.
+
+
+
+
+							<h3>See</h3>
+							<ul>
+									<li><a href="../classes/NobleScene.html#noblescene:enableDebug">enableDebug</a></li>
+									<li><a href="../classes/NobleScene.html#noblescene:drawDebug">drawDebug</a></li>
 							</ul>
 
 
@@ -395,6 +467,31 @@ local scene = YourSceneName
 
 					</dd>
 					<dt>
+						<a name = "noblescene:drawDebug"></a>
+						<span class="item-name">noblescene:drawDebug()<span>
+					</dt>
+					<dd>
+						Implement this function to draw debug visual elements in your scene.
+ This runs via <code>playdate.debugDraw()</code>, so it only runs in the Playdate Simulator, and anything drawn
+ is rendered in this scene's <a href="../classes/NobleScene.html#noblescene.debugColor">debugColor</a>.  By default it does nothing.
+
+
+
+
+							<h3>See</h3>
+							<ul>
+									<li><a href="../classes/NobleScene.html#noblescene.debugColor">debugColor</a></li>
+									<li><a href="../classes/NobleScene.html#noblescene:enableDebug">enableDebug</a></li>
+							</ul>
+
+							<h3>Usage</h3>
+								<pre class="example"><span class="keyword">function</span> YourSceneName:<span class="function-name">drawDebug</span>()
+	YourSceneName.super.<span class="function-name">drawDebug</span>(self) <span class="comment">-- optional, invokes default behavior.
+</span>	<span class="comment">--[Your code here]--
+</span><span class="keyword">end</span></pre>
+
+					</dd>
+					<dt>
 						<a name = "noblescene:exit"></a>
 						<span class="item-name">noblescene:exit()<span>
 					</dt>
@@ -469,6 +566,86 @@ local scene = YourSceneName
 							<h3>Usage</h3>
 								<pre class="example"><span class="keyword">function</span> YourSceneName:<span class="function-name">resume</span>()
 	YourSceneName.super.<span class="function-name">resume</span>(self)
+	<span class="comment">--[Your code here]--
+</span><span class="keyword">end</span></pre>
+
+					</dd>
+					<dt>
+						<a name = "noblescene:gameWillTerminate"></a>
+						<span class="item-name">noblescene:gameWillTerminate()<span>
+					</dt>
+					<dd>
+						<code>gameWillTerminate()</code> / <code>deviceWillSleep()</code> / <code>deviceWillLock()</code> / <code>deviceDidUnlock()</code></p>
+
+<p> Implement any of these in your scene if you want something to happen when the system fires the
+ matching lifecycle event, such as saving game data when the game is about to close, or playing
+ an exit animation.</p>
+
+<p> <strong>NOTE: The Playdate OS uses a watchdog timer of roughly 10 seconds for <code>gameWillTerminate()</code>,
+ after which your game is force-closed, so keep your termination code brief.</strong> Also note that
+ SDK timers do not advance while the device is locked or asleep.
+
+
+
+
+
+							<h3>Usage</h3>
+								<pre class="example"><span class="keyword">function</span> YourSceneName:<span class="function-name">gameWillTerminate</span>()
+	YourSceneName.super.<span class="function-name">gameWillTerminate</span>(self)
+	<span class="comment">--[Your code here]--
+</span><span class="keyword">end</span></pre>
+
+					</dd>
+					<dt>
+						<a name = "noblescene:deviceWillSleep"></a>
+						<span class="item-name">noblescene:deviceWillSleep()<span>
+					</dt>
+					<dd>
+						<span></span>
+
+
+
+
+
+							<h3>Usage</h3>
+								<pre class="example"><span class="keyword">function</span> YourSceneName:<span class="function-name">deviceWillSleep</span>()
+	YourSceneName.super.<span class="function-name">deviceWillSleep</span>(self)
+	<span class="comment">--[Your code here]--
+</span><span class="keyword">end</span></pre>
+
+					</dd>
+					<dt>
+						<a name = "noblescene:deviceWillLock"></a>
+						<span class="item-name">noblescene:deviceWillLock()<span>
+					</dt>
+					<dd>
+						<span></span>
+
+
+
+
+
+							<h3>Usage</h3>
+								<pre class="example"><span class="keyword">function</span> YourSceneName:<span class="function-name">deviceWillLock</span>()
+	YourSceneName.super.<span class="function-name">deviceWillLock</span>(self)
+	<span class="comment">--[Your code here]--
+</span><span class="keyword">end</span></pre>
+
+					</dd>
+					<dt>
+						<a name = "noblescene:deviceDidUnlock"></a>
+						<span class="item-name">noblescene:deviceDidUnlock()<span>
+					</dt>
+					<dd>
+						<span></span>
+
+
+
+
+
+							<h3>Usage</h3>
+								<pre class="example"><span class="keyword">function</span> YourSceneName:<span class="function-name">deviceDidUnlock</span>()
+	YourSceneName.super.<span class="function-name">deviceDidUnlock</span>(self)
 	<span class="comment">--[Your code here]--
 </span><span class="keyword">end</span></pre>
 

@@ -30,6 +30,8 @@
 							<li><a href="#Noble.GameData.set">.set</a></li>
 							<li><a href="#Noble.GameData.reset">.reset</a></li>
 							<li><a href="#Noble.GameData.resetAll">.resetAll</a></li>
+							<li><a href="#Noble.GameData.resetFromDisk">.resetFromDisk</a></li>
+							<li><a href="#Noble.GameData.resetAllFromDisk">.resetAllFromDisk</a></li>
 							<li><a href="#Noble.GameData.addSlot">.addSlot</a></li>
 							<li><a href="#Noble.GameData.deleteSlot">.deleteSlot</a></li>
 							<li><a href="#Noble.GameData.deleteAllSlots">.deleteAllSlots</a></li>
@@ -286,6 +288,87 @@ Noble.GameData.<span class="function-name">set</span>(<span class="string">"name
 					</dt>
 					<dd>
 						Reset all values in a GameData slot to the default values, defined in <a href="../modules/Noble.GameData.html#Noble.GameData.setup">setup</a>.
+
+								<h3>Parameters</h3>
+							<ul class="parameters">
+													<li><span class="parameter">__gameDataSlot</span>
+															<span class="types"><span class="type">integer</span></span>
+															<span class="optional">(optional)</span>
+														<br/>
+														 If set, uses a specific GameData slot. If not, uses the most recently touched GameData slot.
+													</li>
+													<li><span class="parameter">__saveToDisk</span>
+															<span class="types"><span class="type">boolean</span></span>
+															<span class="default">= <span class="value">true</span> (default)</span>
+														<br/>
+														 Saves to disk immediately. Set to false if you prefer to manually save (via a checkpoint or menu).
+													</li>
+													<li><span class="parameter">__updateTimestamp</span>
+															<span class="types"><span class="type">boolean</span></span>
+															<span class="default">= <span class="value">true</span> (default)</span>
+														<br/>
+														 Resets the timestamp of this GameData to the current time. Leave false to retain existing timestamp.
+													</li>
+							</ul>
+
+
+
+							<h3>See</h3>
+							<ul>
+									<a href="../modules/Noble.GameData.html#Noble.GameData.save">Noble.GameData.save</a>
+							</ul>
+
+
+					</dd>
+					<dt>
+						<a name = "Noble.GameData.resetFromDisk"></a>
+						<span class="item-name">Noble.GameData.resetFromDisk(__dataItemName[, __gameDataSlot[, __saveToDisk=true[, __updateTimestamp=true]]])<span>
+					</dt>
+					<dd>
+						Reset a GameData item to its disk value, defined by the last save.
+
+								<h3>Parameters</h3>
+							<ul class="parameters">
+													<li><span class="parameter">__dataItemName</span>
+															<span class="types"><span class="type">string</span></span>
+														<br/>
+														 The name of the data item.
+													</li>
+													<li><span class="parameter">__gameDataSlot</span>
+															<span class="types"><span class="type">integer</span></span>
+															<span class="optional">(optional)</span>
+														<br/>
+														 If set, uses a specific GameData slot. If not, uses the most recently touched GameData slot.
+													</li>
+													<li><span class="parameter">__saveToDisk</span>
+															<span class="types"><span class="type">boolean</span></span>
+															<span class="default">= <span class="value">true</span> (default)</span>
+														<br/>
+														 Saves to disk immediately. Set to false if you prefer to manually save (via a checkpoint or menu).
+													</li>
+													<li><span class="parameter">__updateTimestamp</span>
+															<span class="types"><span class="type">boolean</span></span>
+															<span class="default">= <span class="value">true</span> (default)</span>
+														<br/>
+														 Resets the timestamp of this GameData to the current time. Leave false to retain existing timestamp.
+													</li>
+							</ul>
+
+
+
+							<h3>See</h3>
+							<ul>
+									<a href="../modules/Noble.GameData.html#Noble.GameData.save">Noble.GameData.save</a>
+							</ul>
+
+
+					</dd>
+					<dt>
+						<a name = "Noble.GameData.resetAllFromDisk"></a>
+						<span class="item-name">Noble.GameData.resetAllFromDisk([__gameDataSlot[, __saveToDisk=true[, __updateTimestamp=true]]])<span>
+					</dt>
+					<dd>
+						Reset all values in a GameData slot to their disk values, defined by the last save.
 
 								<h3>Parameters</h3>
 							<ul class="parameters">
