@@ -142,8 +142,8 @@ function Noble.Transition:execute()
 	end
 
 	local onComplete = function()
-		self:onComplete()				-- If this transition has any custom code to run here, run it.
 		Noble.transitionCompleteHandler()
+		self:onComplete()				-- If this transition has any custom code to run here, run it. This runs after the engine's handler (matching onStart/onMidpoint), so a new transition may be started from within this callback.
 	end
 
 	local type = self._type
