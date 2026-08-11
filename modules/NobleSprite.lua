@@ -120,6 +120,13 @@ end
 function NobleSprite:draw()
 	if (self.animation ~= nil) then
 		self.animation:draw()
+		if (self:updatesEnabled()) then
+			-- Normally, NobleSprite:update() marks this sprite as dirty each frame so that
+			-- its animation plays even when "Graphics.sprite.setAlwaysRedraw(false)" is set.
+			-- We also mark it dirty here, in case a subclass has overridden update()
+			-- without calling its super method.
+			self:markDirty()
+		end
 	end
 end
 
